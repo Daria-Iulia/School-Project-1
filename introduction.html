@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Introduction</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        font-family: Nunito, sans-serif;
+      }
+
+      body {
+        font-family: sans-serif;
+        color: #343a40;
+        font-size: 21px;
+        display: grid;
+        grid-template-columns: 400px 1fr 340px;
+      }
+
+      nav {
+        background-color: #fab005;
+        grid-row: 1/-1;
+        color: #e9ecef;
+        padding: 10px 135px;
+      }
+
+      .menu {
+        background-color: #fab005;
+        grid-column: 2/-1;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 205px 0 0px;
+        justify-content: space-between;
+      }
+
+      button {
+        font-size: 16px;
+        background-color: #e67700;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        padding: 8px 32px;
+        font-weight: bold;
+        display: inline-block;
+        border-radius: 10px;
+        margin: 0 auto;
+      }
+
+      nav,
+      section,
+      main,
+      aside {
+        padding-top: 24px;
+      }
+
+      section {
+        background-color: #e9ecef;
+        padding: 40px;
+        display: flex;
+        gap: 40px;
+        flex-direction: column;
+        overflow: scroll;
+        height: 56rem;
+      }
+
+      aside {
+        border-radius: 15px;
+        margin-top: 150px;
+        margin-bottom: 195px;
+        margin-left: -150px;
+        font-size: 15px;
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 600px;
+        width: 430px;
+      }
+
+      .email {
+        background-color: #ced4da;
+        height: 306px;
+        border-radius: 15px;
+        border: 2px solid#ced4da;
+        background-image: linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0) 20%,
+          rgba(255, 255, 255, 0) 80%,
+          #f1f3f5 51%
+        );
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .container {
+        height: 50rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-color);
+        width: 70rem;
+      }
+
+      .tab-container {
+        position: relative;
+        width: 100%;
+        margin-top: 10px;
+        margin-left: 40px;
+        margin-right: 100px;
+        min-width: 500px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .tabs {
+        height: fit-content;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        z-index: 1;
+        position: relative;
+        left: 2px;
+      }
+
+      .tab-holder {
+        position: flex;
+        height: 810px;
+        width: 90%;
+        background: var(--main-color);
+        border-radius: 5px;
+        border-top: 3px solid black;
+        border-bottom: 3px solid black;
+        z-index: 5;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tab {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transition: opacity 150ms;
+      }
+
+      .tab-content {
+        padding: 10px 15px;
+      }
+
+      label {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        width: 100px;
+        z-index: 1;
+        position: absolute;
+        margin-left: 10px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      label:hover {
+        cursor: pointer;
+      }
+
+      label span::before,
+      label span::after {
+        content: "";
+        display: inline;
+        position: absolute;
+        top: 0;
+        transition: 150ms ease-in-out;
+        width: 0;
+        height: 0;
+      }
+
+      label span::before {
+        left: -20px;
+        background: transparent;
+        border-top: 20px solid var(--bg-color);
+        border-bottom: 20px solid var(--edges);
+        border-left: 20px solid transparent;
+        border-right: 20px solid var(--edges);
+      }
+
+      label span::after {
+        background: transparent;
+        border-top: 20px solid var(--bg-color);
+        border-bottom: 20px solid var(--edges);
+        border-left: 20px solid var(--edges);
+        border-right: 20px solid transparent;
+      }
+
+      input.hidden {
+        display: none;
+      }
+
+      #tab-1:checked ~ .tab-holder #tab-1 {
+        opacity: 1;
+      }
+
+      #tab-1:checked ~ .tabs label[for="tab-1"] {
+        --edges: #fab005;
+        width: 140px;
+        background: var(--edges);
+        z-index: 2;
+      }
+
+      #tab-1:checked ~ .tab-holder {
+        border-top-color: #fab005;
+        border-bottom-color: #fab005;
+        margin-left: 20px;
+      }
+      .tabs {
+        left: 0px;
+      }
+
+      .tab-container {
+        width: 90%;
+        min-width: 120px;
+        left: 0;
+      }
+
+      .tab-holder {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+      }
+
+      h1,
+      p {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.5;
+      }
+      span {
+        font-weight: 500;
+      }
+      p,
+      h1 {
+        margin-left: 20px;
+        margin-right: 40px;
+      }
+
+      h2 {
+        margin-left: 20px;
+        margin-right: 40px;
+        text-decoration: underline;
+        font-size: 30px;
+      }
+
+      main {
+        width: 0rem;
+      }
+
+      .img {
+        margin-top: 64px;
+        height: 65px;
+        width: 65px;
+        margin-left: 30px;
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+      }
+      .img:hover {
+        cursor: pointer;
+        filter: invert(100%);
+        transition: all 1.5s;
+      }
+
+      .email-text {
+        margin-top: 90px;
+        font-size: 15px;
+        width: 150px;
+        height: 10px;
+        grid-column-start: 1;
+        grid-column: 2 / -1;
+        grid-row: 2 / -1;
+      }
+
+      span:hover {
+        text-decoration: underline;
+        color: #5f3dc4;
+      }
+
+      a:visited {
+        color: #343a40;
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .btna:visited {
+        color: #fff;
+        text-decoration: none;
+      }
+      .btna {
+        color: #fff;
+        text-decoration: none;
+      }
+      textarea {
+        height: 530px;
+        width: 410px;
+        border: none;
+        background-color: #adb5bd;
+        color: #fff;
+        border-radius: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>Navigation</nav>
+    <div class="menu">
+      <button>
+        <a href="introduction.html" class="btna" target="_blank"
+          >Introduction</a
+        >
+      </button>
+      <button>
+        <a href="design.html" class="btna" target="_blank">Design</a>
+      </button>
+      <button> <a href="detail.html" class="btna" target="_blank">Detail</a></button>
+      <button>Links</button>
+      <button>
+        <a href="sample.html" class="btna" target="_blank">Sample</a>
+      </button>
+    </div>
+    <section>
+      <div class="email">
+        <label for="tab-1"><span>Introduction</span></label>
+        <img src="play.png" class="img img-intro" alt="intro icon" />
+        <p class="email-text">
+          This webpage contains news about The Birmingham 2022 Commonwealth
+          Games.
+        </p>
+      </div>
+
+      <div class="email">
+        <label for="tab-2"><span>Design/Usability/Colors</span></label>
+        <img
+          src="gallery.png"
+          href="#"
+          class="img img-design"
+          alt="design icon"
+        />
+        <p class="email-text">
+          A simple and accesible design will be ideal for this kind of webpage.
+        </p>
+      </div>
+      <div class="email">
+        <label for="tab-3"><span>Detail</span></label>
+        <img src="information.png" class="img img-detail" alt="detail icon" />
+        <p class="email-text">
+          This section contains sample code for the future webpage.
+        </p>
+      </div>
+      <div class="email">
+        <label for="tab-4"><span>Links</span></label>
+        <img src="page.png" href="#" class="img img-links" alt="links icon" />
+        <p class="email-text">
+          This section contains external links for further inspiration.
+        </p>
+      </div>
+    </section>
+    <main>
+      <div class="container">
+        <div class="tab-container">
+          <input type="radio" name="tabs" id="tab-1" class="hidden" checked />
+          
+          <div class="tab-holder">
+            <div class="tab" id="tab-1">
+              <div class="tab-content">
+                <h1>Introduction</h1>
+                <br />
+                <h2>Purpose</h2>
+                <p>
+                  The purpose of this website is to keep people up to date with
+                  the latest news and announcements regarding The Birmingham
+                  2022 Commonwealth Games, the participants and their stories.
+                </p>
+                <br />
+                <h2>Target Audience</h2>
+                <p>
+                  The target audience would be anyone that's intrested in
+                  olympic sports and want to quicky check for the news regarding
+                  the events and the athletes that attend it.
+                </p>
+                <br />
+                <h2>Design summary</h2>
+                <p>
+                  A simple news scroll bar will allow users to surf through the
+                  interface in a few clicks and find all the information they
+                  need. If the article is clicked, it expands on the centre of
+                  the screen.
+                </p>
+              </div>
+            </div>
+          </main>
+          <aside><textarea><!DOCTYPE html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+                <link
+                  href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&display=swap"
+                  rel="stylesheet"
+                />
+                <title>Introduction</title>
+                <style>
+                  * {
+                    box-sizing: border-box;
+                    margin: 0;
+                    font-family: Nunito, sans-serif;
+                  }
+            
+                  body {
+                    font-family: sans-serif;
+                    color: #343a40;
+                    font-size: 21px;
+                    display: grid;
+                    grid-template-columns: 400px 1fr 340px;
+                  }
+            
+                  nav {
+                    background-color: #fab005;
+                    grid-row: 1/-1;
+                    color: #e9ecef;
+                    padding: 10px 135px;
+                  }
+            
+                  .menu {
+                    background-color: #fab005;
+                    grid-column: 2/-1;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    padding: 0 205px 0 0px;
+                    justify-content: space-between;
+                  }
+            
+                  button {
+                    font-size: 16px;
+                    background-color: #e67700;
+                    border: none;
+                    cursor: pointer;
+                    color: #fff;
+                    padding: 8px 32px;
+                    font-weight: bold;
+                    display: inline-block;
+                    border-radius: 10px;
+                    margin: 0 auto;
+                  }
+            
+                  nav,
+                  section,
+                  main,
+                  aside {
+                    padding-top: 24px;
+                  }
+            
+                  section {
+                    background-color: #e9ecef;
+                    padding: 40px;
+                    display: flex;
+                    gap: 40px;
+                    flex-direction: column;
+                    overflow: scroll;
+                    height: 56rem;
+                  }
+            
+                  aside {
+                    border-radius: 15px;
+                    margin-top: 150px;
+                    margin-bottom: 195px;
+                    margin-left: -150px;
+                    font-size: 15px;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                    height: 600px;
+                    width: 430px;
+                  }
+            
+                  .email {
+                    background-color: #ced4da;
+                    height: 306px;
+                    border-radius: 15px;
+                    border: 2px solid#ced4da;
+                    background-image: linear-gradient(
+                      0deg,
+                      rgba(255, 255, 255, 0) 20%,
+                      rgba(255, 255, 255, 0) 80%,
+                      #f1f3f5 51%
+                    );
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                  }
+            
+                  .container {
+                    height: 50rem;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    background: var(--bg-color);
+                    width: 70rem;
+                  }
+            
+                  .tab-container {
+                    position: relative;
+                    width: 100%;
+                    margin-top: 10px;
+                    margin-left: 40px;
+                    margin-right: 100px;
+                    min-width: 500px;
+                    height: fit-content;
+                    display: flex;
+                    flex-direction: column;
+                  }
+            
+                  .tabs {
+                    height: fit-content;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    z-index: 1;
+                    position: relative;
+                    left: 2px;
+                  }
+            
+                  .tab-holder {
+                    position: flex;
+                    height: 810px;
+                    width: 90%;
+                    background: var(--main-color);
+            
+                    border-radius: 5px;
+                    border-top: 3px solid black;
+                    border-bottom: 3px solid black;
+                    z-index: 5;
+                    align-items: center;
+                    justify-content: center;
+                  }
+            
+                  .tab {
+                    opacity: 0;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    transition: opacity 150ms;
+                  }
+            
+                  .tab-content {
+                    padding: 10px 15px;
+                  }
+            
+                  label {
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                    width: 100px;
+                    z-index: 1;
+                    position: absolute;
+                    margin-left: 10px;
+                    align-items: center;
+                    justify-content: center;
+                  }
+            
+                  label:hover {
+                    cursor: pointer;
+                  }
+            
+                  label span::before,
+                  label span::after {
+                    content: "";
+                    display: inline;
+                    position: absolute;
+                    top: 0;
+                    transition: 150ms ease-in-out;
+                    width: 0;
+                    height: 0;
+                  }
+            
+                  label span::before {
+                    left: -20px;
+                    background: transparent;
+                    border-top: 20px solid var(--bg-color);
+                    border-bottom: 20px solid var(--edges);
+                    border-left: 20px solid transparent;
+                    border-right: 20px solid var(--edges);
+                  }
+            
+                  label span::after {
+                    background: transparent;
+                    border-top: 20px solid var(--bg-color);
+                    border-bottom: 20px solid var(--edges);
+                    border-left: 20px solid var(--edges);
+                    border-right: 20px solid transparent;
+                  }
+            
+                  input.hidden {
+                    display: none;
+                  }
+            
+                  #tab-1:checked ~ .tab-holder #tab-1 {
+                    opacity: 1;
+                  }
+            
+                  #tab-1:checked ~ .tabs label[for="tab-1"] {
+                    --edges: #fab005;
+                    width: 140px;
+                    background: var(--edges);
+                    z-index: 2;
+                  }
+            
+                  #tab-1:checked ~ .tab-holder {
+                    border-top-color: #fab005;
+                    border-bottom-color: #fab005;
+                    margin-left: 20px;
+                  }
+                  .tabs {
+                    left: 0px;
+                  }
+            
+                  .tab-container {
+                    width: 90%;
+                    min-width: 120px;
+                    left: 0;
+                  }
+            
+                  .tab-holder {
+                    border-top-left-radius: 0px;
+                    border-top-right-radius: 0px;
+                  }
+            
+                  h1,
+                  p {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    line-height: 1.5;
+                  }
+                  span {
+                    font-weight: 500;
+                  }
+                  p,
+                  h1 {
+                    margin-left: 20px;
+                    margin-right: 40px;
+                  }
+            
+                  h2 {
+                    margin-left: 20px;
+                    margin-right: 40px;
+                    text-decoration: underline;
+                    font-size: 30px;
+                  }
+            
+                  main {
+                    width: 0rem;
+                  }
+            
+                  .img {
+                    margin-top: 64px;
+                    height: 65px;
+                    width: 65px;
+                    margin-left: 30px;
+                    grid-column: 1 / 2;
+                    grid-row: 1 / 2;
+                  }
+                  .img:hover {
+                    cursor: pointer;
+                    filter: invert(100%);
+                    transition: all 1.5s;
+                  }
+            
+                  .email-text {
+                    margin-top: 90px;
+                    font-size: 15px;
+                    width: 150px;
+                    height: 10px;
+                    grid-column-start: 1;
+                    grid-column: 2 / -1;
+                    grid-row: 2 / -1;
+                  }
+            
+                  span:hover {
+                    text-decoration: underline;
+                    color: #5f3dc4;
+                  }
+            
+                  a:visited {
+                    color: #343a40;
+                  }
+            
+                  a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  }
+                  .btna:visited {
+                    color: #fff;
+                    text-decoration: none;
+                  }
+                  .btna {
+                    color: #fff;
+                    text-decoration: none;
+                  }
+                  textarea {
+                    height: 530px;
+                    width: 410px;
+                    border: none;
+                    background-color: #adb5bd;
+                    color: #fff;
+                    border-radius: 15px;
+                  }
+                </style>
+              </head>
+              <body>
+                <nav>Navigation</nav>
+                <div class="menu">
+                  <button>
+                    <a href="introduction.html" class="btna" target="_blank"
+                      >Introduction</a
+                    >
+                  </button>
+                  <button>
+                    <a href="design.html" class="btna" target="_blank">Design</a>
+                  </button>
+                  <button>Detail</button>
+                  <button>Links</button>
+                  <button>
+                    <a href="sample.html" class="btna" target="_blank">Sample</a>
+                  </button>
+                </div>
+                <section>
+                  <div class="email">
+                    <label for="tab-1"><span>Introduction</span></label>
+                    <img src="play.png" class="img img-intro" alt="intro icon" />
+                    <p class="email-text">
+                      This webpage contains news about The Birmingham 2022 Commonwealth
+                      Games.
+                    </p>
+                  </div>
+            
+                  <div class="email">
+                    <label for="tab-2"><span>Design/Usability/Colors</span></label>
+                    <img
+                      src="gallery.png"
+                      href="#"
+                      class="img img-design"
+                      alt="design icon"
+                    />
+                    <p class="email-text">
+                      A simple and accesible design will be ideal for this kind of webpage.
+                    </p>
+                  </div>
+                  <div class="email">
+                    <label for="tab-3"><span>Detail</span></label>
+                    <img src="information.png" class="img img-detail" alt="detail icon" />
+                    <p class="email-text">
+                      This section contains sample code for the future webpage.
+                    </p>
+                  </div>
+                  <div class="email">
+                    <label for="tab-4"><span>Links</span></label>
+                    <img src="page.png" href="#" class="img img-links" alt="links icon" />
+                    <p class="email-text">
+                      This section contains external links for further inspiration.
+                    </p>
+                  </div>
+                </section>
+                <main>
+                        <div class="tab" id="tab-1">
+                          
+                            <h1>Introduction</h1>
+                            <br />
+                            <h2>Purpose</h2>
+                            <p>
+                              The purpose of this website is to keep people up to date with
+                              the latest news and announcements regarding The Birmingham
+                              2022 Commonwealth Games, the participants and their stories.
+                            </p>
+                            <br />
+                            <h2>Target Audience</h2>
+                            <p>
+                              The target audience would be anyone that's intrested in
+                              olympic sports and want to quicky check for the news regarding
+                              the events and the athletes that attend it.
+                            </p>
+                            <br />
+                            <h2>Design summary</h2>
+                            <p>
+                              A simple news scroll bar will allow users to surf through the
+                              interface in a few clicks and find all the information they
+                              need. If the article is clicked, it expands on the centre of
+                              the screen.
+                            </p>
+                          </div>
+                        </div>
+                      </main></textarea></aside>
+  </body>
+</html>
